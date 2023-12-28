@@ -195,6 +195,9 @@ const GcpChatbot = ({ apiURL}) => {
     setMessages((prevMessages) => [...prevMessages, loadingobj]);
     let resp;
     try {
+      if(data?.messages?.length ==0){
+        data.messages.push({role: "user", content: "hi"});
+      }
       resp = await response(url, data);
     }
     catch (e) {
@@ -870,7 +873,7 @@ const GcpChatbot = ({ apiURL}) => {
       document.documentElement.style.setProperty("--chat-background-color", "black");
       document.documentElement.style.setProperty("--quick-reply-background-color", "yellow");
     } else {
-      document.documentElement.style.setProperty("--chatbot-primary-color", "#cb177d");
+      document.documentElement.style.setProperty("--chatbot-primary-color", "#0099D8");
       document.documentElement.style.setProperty("--chatbot-light-color", "white");
       document.documentElement.style.setProperty("--chatbot-dark-color", "black");
       document.documentElement.style.setProperty("--chat-background-color", "#d9e7f6");
