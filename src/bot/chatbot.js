@@ -7,6 +7,7 @@ import audioFile from './ping.mp3';
 import YoutubeCarousel from './Youtubevideos';
 import RenderMultipleCards from './renderMultipleCards';
 import ChatbotStyles from './chatbotstyles.module.css';
+import pemlogo from '../assets/pemlogo.png'
 
 
 const GcpChatbot = ({ apiURL}) => {
@@ -195,9 +196,7 @@ const GcpChatbot = ({ apiURL}) => {
     setMessages((prevMessages) => [...prevMessages, loadingobj]);
     let resp;
     try {
-      if(data?.messages?.length ==0){
-        data.messages.push({role: "user", content: "hi"});
-      }
+      
       resp = await response(url, data);
     }
     catch (e) {
@@ -911,11 +910,12 @@ const GcpChatbot = ({ apiURL}) => {
           <div className={ChatbotStyles["chat-header"]} id="chat-header">
             <div className={ChatbotStyles.logo}>
               <img
-                src="https://play-lh.googleusercontent.com/bIfJUTZvgDS61x5XCj8yqe_lLdGBNFOrpMyqoE5ANCkc3SwZQ8NWLQAQa3C6klnOxg"
+                src={pemlogo}
                 alt="MHS Indiana logo"
                 className={ChatbotStyles.headerimg}
               />
             </div>
+            
 
             <div className={ChatbotStyles.title}>HR Bot</div>
 
@@ -1039,7 +1039,7 @@ const GcpChatbot = ({ apiURL}) => {
                   style={{ fontSize: '28px', cursor: 'pointer' }}
                   onClick={runAudioRecording}
                 >
-                  {micname}
+                
                 </span>)
                   :
 
