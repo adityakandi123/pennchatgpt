@@ -481,6 +481,8 @@ const GcpChatbot = ({ apiURL}) => {
       elements.push(rendertranslatedresponse(modifiedContent, index));
     }
     if (message?.content?.translated_response && message?.content?.urls?.length > 0) {
+      message.content.translated_response = message.content.translated_response.replace(/\\n/g, '<br />');
+      message.content.translated_response = message.content.translated_response.replace(/['"]+/g, '');
       const regex = /https:\/\/www\.youtube\.com\/embed\/([\w-]+)/g;
       const matches = message.content.urls[0].url.match(regex);
       if (matches) {
@@ -497,6 +499,8 @@ const GcpChatbot = ({ apiURL}) => {
         elements.push(rendertranslatedresponsewithYturls(message.content.urls))
       }
       else {
+        message.content.translated_response = message.content.translated_response.replace(/\\n/g, '<br />');
+        message.content.translated_response = message.content.translated_response.replace(/['"]+/g, '');
         message.content.translated_response = message.content.translated_response.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         let modifiedContent = message.content.translated_response.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (match, $1, $2) {
           if ($1.includes("Doc")) {
