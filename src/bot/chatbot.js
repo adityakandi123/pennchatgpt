@@ -10,9 +10,9 @@ import ChatbotStyles from './chatbotstyles.module.css';
 import pemlogo from '../assets/pemlogo.png'
 
 
-const GcpChatbot = ({ apiURL}) => {
-  console.log('apiURL', apiURL)
-  const [chatclick, setchatclicked] = useState(false);
+const GcpChatbot = ({ apiURL,hostingEnv}) => {
+
+  const [chatclick, setchatclicked] = useState(true);
   const [txtInputValue, settextInputValue] = useState("");
   const [showmic, setshowmic] = useState(true);
   const [messages, setMessages] = useState([]); // Store chat messages here
@@ -903,11 +903,11 @@ const GcpChatbot = ({ apiURL}) => {
 
   return (
     <div className='chatbot-component'>
-      <div className={ChatbotStyles["chat-icon"]} id="chat-icon" onClick={handlechatclick}>
+      {/* <div className={ChatbotStyles["chat-icon"]} id="chat-icon" onClick={handlechatclick}>
         <span className="material-symbols-outlined chaticon" style={{ color: "var(--chatbot-light-color", fontSize: "30px" }}>
           chat
         </span>
-      </div>
+      </div> */}
       {chatclick == true && (
         <div className={`${ChatbotStyles['chat-container']}`} id="chat-container">
 
@@ -921,7 +921,7 @@ const GcpChatbot = ({ apiURL}) => {
             </div>
             
 
-            <div className={ChatbotStyles.title}>HR Bot</div>
+            <div className={ChatbotStyles.title}>HR Bot ({hostingEnv})</div>
 
             <div  className={ChatbotStyles["chat-buttons"]}>
 
@@ -983,11 +983,11 @@ const GcpChatbot = ({ apiURL}) => {
                 </span>
               </div>
 
-              <div className={ChatbotStyles["minimize-chat"]} id="minimize-chat" onClick={handlechatclick}>
+              {/* <div className={ChatbotStyles["minimize-chat"]} id="minimize-chat" onClick={handlechatclick}>
                 <span className="material-symbols-outlined">
                   Minimize
                 </span>
-              </div>
+              </div> */}
 
             </div>
 
