@@ -8,9 +8,10 @@ import YoutubeCarousel from './Youtubevideos';
 import RenderMultipleCards from './renderMultipleCards';
 import ChatbotStyles from './chatbotstyles.module.css';
 import pemlogo from '../assets/pemlogo.png'
+import { authProvider } from '../authProvider';
 
 
-const GcpChatbot = ({ apiURL,hostingEnv}) => {
+const GcpChatbot = ({ apiURL, hostingEnv }) => {
 
   const [chatclick, setchatclicked] = useState(true);
   const [txtInputValue, settextInputValue] = useState("");
@@ -35,7 +36,7 @@ const GcpChatbot = ({ apiURL,hostingEnv}) => {
   const [fontSize, setFontSize] = useState('medium');
 
 
-
+  console.log("aef")
 
 
 
@@ -94,6 +95,7 @@ const GcpChatbot = ({ apiURL,hostingEnv}) => {
   }
 
   async function getConversationIdresponse() {
+
     const response = await fetch("https://directline.botframework.com/v3/directline/conversations", {
       method: 'POST',
       mode: 'cors',
@@ -120,14 +122,21 @@ const GcpChatbot = ({ apiURL,hostingEnv}) => {
 
   //Api calls for chatbotresponses
   async function response(url, data) {
-   
+    let  token;
+    try {
+      token = await authProvider.getAccessToken();
+      console.log("token", token.accessToken)
+    }
+    catch (err) {
+      console.log(err)
+    }
 
     const response = await fetch(url, {
       method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': `Bearer ${BEARER_TOKEN}`
+        'Authorization': `${token?.accessToken}`
       },
       body: JSON.stringify(data),
     })
@@ -163,7 +172,7 @@ const GcpChatbot = ({ apiURL,hostingEnv}) => {
   async function getChatbotResponse(userInput) {
 
     let url = apiURL;
-    let  lastmsgsTemp= [...lastmsgs];
+    let lastmsgsTemp = [...lastmsgs];
     //"
     //let url = "http://127.0.0.1:5001"
     if (userInput === undefined) {
@@ -174,8 +183,8 @@ const GcpChatbot = ({ apiURL,hostingEnv}) => {
       //url = url + "/middleware"
       url = url;
       let userobj = { role: "user", content: userInput };
-     
-      
+
+
       lastmsgsTemp.push(userobj)
       setLastmsgs(lastmsgsTemp);
     }
@@ -196,7 +205,7 @@ const GcpChatbot = ({ apiURL,hostingEnv}) => {
     setMessages((prevMessages) => [...prevMessages, loadingobj]);
     let resp;
     try {
-      
+
       resp = await response(url, data);
     }
     catch (e) {
@@ -919,11 +928,11 @@ const GcpChatbot = ({ apiURL,hostingEnv}) => {
                 className={ChatbotStyles.headerimg}
               />
             </div>
-            
+
 
             <div className={ChatbotStyles.title}>HR Bot ({hostingEnv})</div>
 
-            <div  className={ChatbotStyles["chat-buttons"]}>
+            <div className={ChatbotStyles["chat-buttons"]}>
 
               <div className={ChatbotStyles["settings-div"]} id="settingsdiv" >
                 <span className="material-symbols-rounded" onClick={setsettings}>
@@ -1043,7 +1052,7 @@ const GcpChatbot = ({ apiURL,hostingEnv}) => {
                   style={{ fontSize: '28px', cursor: 'pointer' }}
                   onClick={runAudioRecording}
                 >
-                
+
                 </span>)
                   :
 

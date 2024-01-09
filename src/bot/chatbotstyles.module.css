@@ -17,7 +17,7 @@ body,pre {
 }
 
 body {
-  background: url(../assets/penneng.png) 0 0/cover no-repeat var(--chatbot-secondary-color);
+  /* background: url(../assets/penneng.png) 0 0/cover no-repeat var(--chatbot-secondary-color); */
   object-fit: fill;
   height: 100%
 }
