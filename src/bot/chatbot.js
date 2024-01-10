@@ -33,8 +33,6 @@ const GcpChatbot = ({ apiURL, hostingEnv }) => {
   const [isContrastOn, setIsContrastOn] = useState(false);
   const [fontSize, setFontSize] = useState("medium");
 
-  console.log("aef");
-
   useEffect(() => {
     // Place your initialization logic here
     // For example, you can call getConversationId()
@@ -119,7 +117,7 @@ const GcpChatbot = ({ apiURL, hostingEnv }) => {
     let token;
     try {
       token = await myMSALObj.acquireTokenSilent(appScopes);
-      console.log("token", token.accessToken);
+      // console.log("token", token.accessToken);
     } catch (err) {
       console.log(err);
     }
@@ -152,7 +150,7 @@ const GcpChatbot = ({ apiURL, hostingEnv }) => {
     }
     const jsonData = await response.json();
     setIsLoading(false);
-    console.log(jsonData);
+    // console.log(jsonData);
     return jsonData;
   }
 
