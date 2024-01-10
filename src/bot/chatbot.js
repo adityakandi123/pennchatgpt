@@ -493,7 +493,7 @@ const GcpChatbot = ({ apiURL, hostingEnv }) => {
       message.content.translated_response = message.content.translated_response.replace(/\\n/g, '<br />');
       message.content.translated_response = message.content.translated_response.replace(/['"]+/g, '');
       const regex = /https:\/\/www\.youtube\.com\/embed\/([\w-]+)/g;
-      const matches = message.content.urls[0].url.match(regex);
+      const matches = message.content.urls[0]?.url?.match(regex);
       if (matches) {
         message.content.translated_response = message.content.translated_response.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         let modifiedContent = message.content.translated_response.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (match, $1, $2) {
