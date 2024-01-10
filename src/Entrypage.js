@@ -1,34 +1,29 @@
-
-
-import App from './App';
-import { AzureAD, AuthenticationState  } from 'react-aad-msal';
-import { authProvider } from './authProvider';
+import { InteractionType } from "@azure/msal-browser";
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  useMsalAuthentication,
+} from "@azure/msal-react";
+import App from "./App";
+import myMSALObj, { authenticationParameters } from "./authProvider";
 
 function Entry() {
-    return (
-       
-        <AzureAD provider={authProvider} forceLogin={true}>
-  {
-    ({login, logout, authenticationState, error, accountInfo}) => {
-      switch (authenticationState) {
-        case AuthenticationState.Authenticated:
-          return (
-            <App></App>
-          );
-        case AuthenticationState.Unauthenticated:
-          return (
-            <div>
-              {error && <p><span>An error occurred during authentication, please try again!</span></p>}
-             
-            </div>
-          );
-        case AuthenticationState.InProgress:
-          return (<p>Authenticating...</p>);
-      }
-    }
-  }
-</AzureAD>
-    );
-  }
-  
-  export default Entry;
+  const handleLogout = () => {
+    myMSALObj.logoutRedirect().catch(() => {
+      console.error("Something went wrong while logging out");
+    });
+  };
+
+  useMsalAuthentication(InteractionType.Redirect, authenticationParameters);
+
+  return (
+    <div>
+      <AuthenticatedTemplate>
+        <App />
+      </AuthenticatedTemplate>
+      <UnauthenticatedTemplate>Not authenticated</UnauthenticatedTemplate>
+    </div>
+  );
+}
+
+export default Entry;

@@ -1,19 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import Entry from './Entrypage';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import Entry from "./Entrypage";
+import reportWebVitals from "./reportWebVitals";
+import { MsalProvider } from "@azure/msal-react";
+import myMSALObj from "./authProvider";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   //   <App />
   // </React.StrictMode>
   // <AzureAD provider={authProvider} forceLogin={true}>
-   
-  // </AzureAD>
 
+  // </AzureAD>
+  <MsalProvider instance={myMSALObj}>
     <Entry />
+  </MsalProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
